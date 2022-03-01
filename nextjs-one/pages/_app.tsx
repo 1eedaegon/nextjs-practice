@@ -1,12 +1,16 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import Layout from '../components/Layout'
+import { ReactElement, ReactNode } from 'react'
+import { NextPage } from 'next'
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-  <div>
+  <Layout>
     <Component {...pageProps} />
-    <span>global hello!</span>
-  </div>)
+  </Layout>
+  )
 }
 
 export default MyApp
