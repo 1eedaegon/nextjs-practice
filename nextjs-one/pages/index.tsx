@@ -1,15 +1,14 @@
-import type { NextPage } from 'next'
-import { useState } from 'react'
-import NavBar from '../components/NavBar'
-
+import type { NextPage } from 'next';
+import { useState } from 'react';
+import NavBar from '../components/NavBar';
 
 const Home: NextPage = () => {
-  const [counter, setCounter] = useState(0)
+  const [counter, setCounter] = useState(0);
   return (
     <div>
       <h1>hi!</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
