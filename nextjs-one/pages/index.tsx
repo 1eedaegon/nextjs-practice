@@ -9,7 +9,7 @@ interface Movie {
   overview: string;
 }
 
-export async function getServerSideProps({}: GetServerSideProps) {
+export async function getServerSideProps() {
   const { results } = await (
     await fetch(`http://localhost:3000/api/moives`)
   ).json();
@@ -25,7 +25,7 @@ export default function Home({
       {results?.map((movie: Movie) => (
         <div className="movie" key={movie.id}>
           <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
           />
           <h4>{movie.original_title}</h4>
