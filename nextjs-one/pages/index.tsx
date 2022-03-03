@@ -1,6 +1,4 @@
-import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Seo from '../components/Seo';
 
 interface Movie {
@@ -11,21 +9,25 @@ interface Movie {
   overview: string;
 }
 
-const Home: NextPage = () => {
-  const [movies, setMovies] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const { results } = await (await fetch(`/api/movies`)).json();
-      setMovies(results);
-    })();
-  }, []);
+export async function getServerSideProps({}: GetServerSideProps) {
+  const { results } = await (
+    await fetch(`http://localhost:3000/api/moives`)
+  ).json();
+  return { props: { results } };
+}
+
+export default function Home({
+  results,
+}: InferGetServerSidePropsType<GetServerSideProps>) {
   return (
     <div className="container">
       <Seo title="Home" />
-      {!movies && <h4>Loading...</h4>}
-      {movies.map((movie: Movie) => (
-        <div key={movie.id} className="movie">
-          <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+      {results?.map((movie: Movie) => (
+        <div className="movie" key={movie.id}>
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt={movie.title}
+          />
           <h4>{movie.original_title}</h4>
         </div>
       ))}
@@ -33,8 +35,11 @@ const Home: NextPage = () => {
         .container {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 20px;
           padding: 20px;
+          gap: 20px;
+        }
+        .movie {
+          cursor: pointer;
         }
         .movie img {
           max-width: 100%;
@@ -52,6 +57,4 @@ const Home: NextPage = () => {
       `}</style>
     </div>
   );
-};
-
-export default Home;
+}
