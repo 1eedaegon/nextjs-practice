@@ -1,4 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Seo from '../components/Seo';
 
 interface Movie {
@@ -9,26 +11,53 @@ interface Movie {
   overview: string;
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({}: GetServerSideProps) {
   const { results } = await (
-    await fetch(`http://localhost:3000/api/moives`)
+    await fetch(`http://localhost:3000/api/movies`)
   ).json();
-  return { props: { results } };
+  return {
+    props: { results },
+  };
 }
 
 export default function Home({
   results,
 }: InferGetServerSidePropsType<GetServerSideProps>) {
+  const router = useRouter();
+  const onClick = (id: number, title: string) => {
+    router.push(
+      {
+        pathname: `/movies/${id}`,
+        query: { title },
+      },
+      `/movies/${id}`
+    );
+  };
+
   return (
     <div className="container">
       <Seo title="Home" />
       {results?.map((movie: Movie) => (
-        <div className="movie" key={movie.id}>
+        <div
+          onClick={() => onClick(movie.id, movie.original_title)}
+          className="movie"
+          key={movie.id}
+        >
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
           />
-          <h4>{movie.original_title}</h4>
+          <h4>
+            <Link
+              href={{
+                pathname: `/movies/${movie.id}`,
+                query: { title: movie.original_title },
+              }}
+              as={`/movies/${movie.id}`}
+            >
+              <a>{movie.original_title}</a>
+            </Link>
+          </h4>
         </div>
       ))}
       <style jsx>{`
