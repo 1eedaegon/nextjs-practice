@@ -7,5 +7,5 @@
 - [x] CSS
 - [x] Data fetch
 - [x] SSR
-- [ ] Dynamic routing
-- [ ] Catch all
+- [x] Dynamic routing
+- [x] Catch all
