@@ -20,7 +20,28 @@ const Home: NextPage = () => {
           <span>Checkout</span>
         </div>
       </div>
-      <div className="bg-white p-10 rounded-xl shadow-xl"></div>
+      <div className="bg-white overflow-hidden rounded-3xl shadow-xl">
+        <div className="bg-blue-600 p-6 pb-14">
+          <span className="text-white text-2xl">Profile</span>
+        </div>
+        <div className="rounded-xl bg-white relative -top-14">
+          <div className="">
+            <div className="">
+              <span>Orders</span>
+              <span>340</span>
+            </div>
+            <div className="">프로필사진</div>
+            <div className="">
+              <span>Spent</span>
+              <span>340</span>
+            </div>
+          </div>
+          <div className="">
+            <span>Tony Molly</span>
+            <span>미국</span>
+          </div>
+        </div>
+      </div>
       <div className="bg-white p-10 rounded-xl shadow-xl"></div>
       <div className="bg-white p-10 rounded-xl shadow-xl"></div>
     </div>
